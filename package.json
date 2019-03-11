@@ -1,0 +1,41 @@
+{
+  "name": "reactjs-mentoring-program",
+  "version": "0.0.1",
+  "description": "reactjs mentoring program",
+  "main": "server/index.js",
+  "dependencies": {
+    "express": "^4.16.4",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-scripts": "^2.1.8"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env",
+      "@babel/react"
+    ]
+  },
+  "scripts": {
+    "build": "webpack --watch",
+    "server": "node ./server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pavelmarozau/reactjs-mentoring-program.git"
+  },
+  "author": "Pavel Marozau",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pavelmarozau/reactjs-mentoring-program/issues"
+  },
+  "homepage": "https://github.com/pavelmarozau/reactjs-mentoring-program#readme"
+}
