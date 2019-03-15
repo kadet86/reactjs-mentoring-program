@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App snapshot is persistent 1`] = `
+<section>
+  <h1>
+    App Component header
+  </h1>
+  <h3
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+    Hello from no jsx element
+  </h3>
+  <h3
+    style={
+      Object {
+        "color": "orange",
+      }
+    }
+  >
+    Hello from pure component
+  </h3>
+  <h3
+    style={
+      Object {
+        "color": "green",
+      }
+    }
+  >
+    Hello from functional component
+  </h3>
+</section>
+`;
