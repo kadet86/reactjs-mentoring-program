@@ -14,7 +14,7 @@ export default class GenreMovieList extends React.PureComponent {
     }
 
     fetchMovies() {
-        fetch(`${URL}?sortOrder=desc&limit=6&sortBy=vote_average&searchBy=genre&search=${this.props.genre}`)
+        fetch(`${URL}?sortOrder=desc&limit=6&sortBy=vote_average&searchBy=genres&search=${this.props.genre}`)
             .then(res => res.json())
             .then(json => {
                 this.setState({movies: json.data});
@@ -23,6 +23,12 @@ export default class GenreMovieList extends React.PureComponent {
 
     componentDidMount() {
         this.fetchMovies();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.genre !== prevProps.genre) {
+            this.fetchMovies();
+        }
     }
 
     render() {

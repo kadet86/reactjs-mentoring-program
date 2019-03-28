@@ -2,6 +2,7 @@ import React from 'react';
 import MovieList from './MovieList';
 import SearchForm from './SearchForm';
 import SearchResultsInfo from './SearchResultsInfo';
+import TopSection from './TopSection';
 
 const URL = 'https://reactjs-cdp.herokuapp.com/movies';
 
@@ -58,8 +59,7 @@ export default class FilteredMovieList extends React.PureComponent {
     render() {
         return (
             <section className="filtered-movie-list">
-                <div className="top-section">
-                    <div>
+                <TopSection>
                     <h1>FIND YOUR MOVIE</h1>
                     <SearchForm 
                         query={this.state.query} 
@@ -67,8 +67,7 @@ export default class FilteredMovieList extends React.PureComponent {
                         onSearchByChange={this.onSearchByChange}
                         onQueryChange={this.onQueryChange}
                         onSubmit={this.onSubmit} />
-                    </div>
-                </div>
+                </TopSection>
                 <SearchResultsInfo 
                     resultsCount={this.state.movies.length}
                     sortBy={this.state.sortBy} 

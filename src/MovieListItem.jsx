@@ -8,9 +8,11 @@ export default function MovieListItem({movie, navigateToMovie}) {
             </a>
             <div>
                 <h2>{movie.title}</h2>
-                <span>{movie.release_date.substr(0, 4)}</span>
+                <span className="movie-list-item__date">
+                    {movie.release_date.substr(0, 4)}
+                </span>
             </div>
-            <div>{movie.genres.join(' & ')}</div>
+            <div className="movie-list-item__genres">{movie.genres.join(' & ')}</div>
         </div>
     );
 }

@@ -3,6 +3,7 @@ body {
     margin: 0;
     display: flex; 
     justify-content: center;
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .app {
@@ -11,6 +12,7 @@ body {
 }
 
 .top-section {
+    position: relative;
     padding-top: 40px;
     padding-bottom: 20px;
     display: flex; 
@@ -20,9 +22,25 @@ body {
     background-size: cover;
 }
 
-.top-section > div {
+.top-section__overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    background: black;
+    opacity: .8;
+}
+
+.top-section .top-section__inner-container {
     width: 700px;
     color: white;
+    z-index: 1;
+}
+
+.filtered-movie-list {
+    width: 100%;
 }
 
 .filtered-movie-list h1 {
@@ -108,9 +126,85 @@ body {
     width: 100%;
 }
 
+.movie-list-item h2 {
+    display: inline-block;
+    padding: 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    width: 210px;
+}
+
+.movie-list-item__date {
+    float: right;
+    margin-top: 8px;
+    font-size: 10px;
+    padding: 1px 4px;
+    border: 1px solid #999;
+    border-radius: 2px;
+}
+
+.movie-list-item__genres {
+    font-size: 10px;
+    color: #999;
+    margin-top: -8px;
+}
+
+.app .movie-page button {
+    font-size: 10px;
+    color: red!important;
+    float: right;
+    margin-top: -24px;
+}
+
 .movie {
+    position: relative;
+}
+
+.movie img {
+    max-width: 200px;
+    width: auto;
+    height: auto;
 }
 
 .movie__description {
-    float: right;
+    position: absolute;
+    top: 0;
+    left: 220px;
+    width: 450px;
+}
+
+.movie__description h2 {
+    display: inline-block;
+    margin: 0;
+    color: #d8083ed9;
+}
+
+.movie__rating {
+    display: inline-block;
+    border: 1px solid darkkhaki;
+    border-radius: 14px;
+    width: 28px;
+    height: 28px;
+    line-height: 26px;
+    text-align: center;
+    color: darkkhaki;
+    margin-left: 12px;
+    font-size: 12px;
+    position: relative;
+    top: -2px;
+}
+
+.movie__date {
+    margin-right: 20px;
+}
+
+.movie__tagline,
+.movie__overview {
+    color: #aaa;
+}
+
+.movie__overview {
+    margin-top: 20px;
+    max-height: 200px;
+    overflow: hidden;
 }
