@@ -1,0 +1,116 @@
+body {
+    padding: 0;
+    margin: 0;
+    display: flex; 
+    justify-content: center;
+}
+
+.app {
+    display: flex;
+    width: 900px;
+}
+
+.top-section {
+    padding-top: 40px;
+    padding-bottom: 20px;
+    display: flex; 
+    flex-direction: row; 
+    justify-content: center;
+    background-image: url('http://i.imgur.com/1lAdGBz.jpg');
+    background-size: cover;
+}
+
+.top-section > div {
+    width: 700px;
+    color: white;
+}
+
+.filtered-movie-list h1 {
+    margin: 0; 
+    margin-bottom: 10px; 
+    font-size: 14px; 
+    color: white;
+}
+
+.search-form {
+    margin-bottom: 20px;
+}
+
+.search-form .search-input {
+    width: 100%; 
+    margin-bottom: 10px; 
+    background: black; 
+    color: white
+}
+
+.search-form .search-button {
+    font-size: 16px;
+    float: right;
+}
+
+.search-by {
+    display: inline-block;
+    font-size: 12px;
+}
+
+.search-by label {
+    margin-right: 20px;
+    color: white;
+}
+
+.search-form .search-by button {
+    margin-right: 12px;
+    font-size: 12px;
+}
+
+.app .movie-list-toolbar {
+    border: none; 
+    font-weight: bold; 
+    font-size: 12px; 
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.app .movie-list-toolbar label {
+    display: inline-block;
+}
+
+.sort-by {
+    float: right;
+}
+
+.sort-by__link {
+    padding-right: 10px;
+}
+
+.sort-by__link--active {
+    color: red;
+}
+
+.sort-by label {
+    padding-right: 10px;
+}
+
+.movie-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.movie-list-item {
+    width: 250px;
+    margin-bottom: 20px;
+}
+
+.movie-list-item img {
+    width: 100%;
+}
+
+.movie {
+}
+
+.movie__description {
+    float: right;
+}

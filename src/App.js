@@ -1,26 +1,38 @@
-import React, {Component, PureComponent} from 'react';
-
-const noJsxElement = React.createElement('h3', {style: {color: "red"}}, 'Hello from no jsx element');
-
-class HelloPure extends PureComponent {
-    render() {
-        return <h3 {...this.props}>Hello from pure component</h3>;
-    }
-}
-
-function HelloFunc(props) {
-    return <h3 {...props}>Hello from functional component</h3>;
-}
+import React, {Component} from 'react';
+import ErrorBoundary from './ErrorBoundary';
+import FilteredMovieList from './FilteredMovieList';
+import MoviePage from './MoviePage';
+import './main.css';
+import 'primereact/resources/themes/nova-light/theme.css';
 
 export default class App extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {movie: null};
+    }
+
+    navigateToMovie = (movie) => {
+        this.setState({movie});
+    }
+
+    navigateToSearch = () => {
+        this.setState({movie: null});
+    }
+
     render() {
         return (
-            <section>
-                <h1>App Component header</h1>
-                {noJsxElement}
-                <HelloPure style={{color: "orange"}} />
-                <HelloFunc style={{color: "green"}} />
-            </section>
+            <ErrorBoundary>
+                <section className="app">
+                    {!this.state.movie && 
+                    <FilteredMovieList navigateToMovie={this.navigateToMovie}/> }
+                    {this.state.movie && 
+                    <MoviePage 
+                        movie={this.state.movie} 
+                        navigateBack={this.navigateToSearch}
+                        navigateToMovie={this.navigateToMovie} /> }
+                </section>
+            </ErrorBoundary>
         );
     }
 }
