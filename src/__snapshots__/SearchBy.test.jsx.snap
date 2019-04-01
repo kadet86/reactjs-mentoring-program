@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBy component has persistent default snapshot 1`] = `ShallowWrapper {}`;
+
+exports[`SearchBy component has persistent snapshot with searchBy="genres" 1`] = `ShallowWrapper {}`;
+
+exports[`SearchBy component has persistent snapshot with searchBy="title" 1`] = `ShallowWrapper {}`;

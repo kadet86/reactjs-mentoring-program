@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MovieList component has persistent snapshot with movies={[]} 1`] = `ShallowWrapper {}`;
+
+exports[`MovieList component has persistent snapshot with movies={[{id: 1}, {id: 2}, {id: 3}]} 1`] = `ShallowWrapper {}`;

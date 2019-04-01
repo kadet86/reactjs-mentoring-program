@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MoviePage component has persistent default snapshot 1`] = `ShallowWrapper {}`;
+
+exports[`MoviePage component has persistent snapshot with movie={{genres: ["action"]}} 1`] = `ShallowWrapper {}`;
+
+exports[`MoviePage component has persistent snapshot with movie={{genres: []}} 1`] = `ShallowWrapper {}`;

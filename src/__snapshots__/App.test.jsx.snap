@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App component has persistent default snapshot 1`] = `ShallowWrapper {}`;
+
+exports[`App component has persistent snapshot after .navigateMovie() call 1`] = `ShallowWrapper {}`;
+
+exports[`App component has persistent snapshot after .navigateToSearch() call 1`] = `ShallowWrapper {}`;
