@@ -11,6 +11,6 @@ describe('TopSection component', () => {
             </TopSection>
             )
         );
-        expect(component).toMatchSnapshot();
+        expect(component.html()).toMatchSnapshot();
     });
 });

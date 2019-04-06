@@ -6,12 +6,14 @@ describe('ErrorBoundary component', () => {
     it('has persistent regular snapshot', () => {
         const component = shallow((
             <ErrorBoundary>
-                <div id="1"></div>
-                <div id="2"></div>
+                <>
+                    <div id="1"></div>
+                    <div id="2"></div>
+                </>
             </ErrorBoundary>
             )
         );
-        expect(component).toMatchSnapshot();
+        expect(component.html()).toMatchSnapshot();
     });
 
     it('has persistent error snapshot', () => {
@@ -25,6 +27,6 @@ describe('ErrorBoundary component', () => {
         );
 
         expect(console.error).toHaveBeenCalled();
-        expect(component).toMatchSnapshot();
+        expect(component.html()).toMatchSnapshot();
     });
 });

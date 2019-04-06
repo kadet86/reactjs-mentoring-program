@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Movie component has persistent snapshot with movie={{}} 1`] = `ShallowWrapper {}`;
+exports[`Movie component has persistent snapshot with movie={{}} 1`] = `"<article class=\\"movie\\"><img/><div class=\\"movie__description\\"><h2></h2> <div class=\\"movie__rating\\"></div><div class=\\"movie__tagline\\"></div><span class=\\"movie__date\\"></span><span class=\\"movie__duration\\">0 min</span><div class=\\"movie__overview\\"></div></div></article>"`;
 
-exports[`Movie component has persistent snapshot with movie={{release_date:"2018-02-03"}} 1`] = `ShallowWrapper {}`;
+exports[`Movie component has persistent snapshot with movie={{release_date:"2018-02-03"}} 1`] = `"<article class=\\"movie\\"><img/><div class=\\"movie__description\\"><h2></h2> <div class=\\"movie__rating\\"></div><div class=\\"movie__tagline\\"></div><span class=\\"movie__date\\">2018</span><span class=\\"movie__duration\\">0 min</span><div class=\\"movie__overview\\"></div></div></article>"`;

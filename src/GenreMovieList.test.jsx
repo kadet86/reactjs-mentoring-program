@@ -10,7 +10,7 @@ describe('GenreMovieList component', () => {
     it('has persistent default snapshot', () => {
         fetch.mockResponseOnce(JSON.stringify({ data: [] }));
         const component = shallow(<GenreMovieList />);
-        expect(component).toMatchSnapshot();
+        expect(component.html()).toMatchSnapshot();
     });
 
     it('fetches movies when genre is changed', () => {

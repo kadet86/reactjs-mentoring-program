@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`GenreMovieList component has persistent default snapshot 1`] = `ShallowWrapper {}`;
+exports[`GenreMovieList component has persistent default snapshot 1`] = `"<section><div class=\\"p-toolbar p-component movie-list-toolbar\\"><label class=\\"movie-list-toolbar__label\\">Films by  genre</label></div><section class=\\"movie-list\\"></section></section>"`;

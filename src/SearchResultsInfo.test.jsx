@@ -5,6 +5,6 @@ import SearchResultsInfo from './SearchResultsInfo';
 describe('SearchResultsInfo component', () => {
     it('has persistent snapshot', () => {
         const component = shallow(<SearchResultsInfo />);
-        expect(component).toMatchSnapshot();
+        expect(component.html()).toMatchSnapshot();
     });
 });

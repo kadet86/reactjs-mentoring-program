@@ -6,12 +6,12 @@ import MovieList from './MovieList';
 describe('MovieList component', () => {
     it('has persistent snapshot with movies={[]}', () => {
         const component = shallow(<MovieList movies={[]}/>);
-        expect(component).toMatchSnapshot();
+        expect(component.html()).toMatchSnapshot();
     });
 
     it('has persistent snapshot with movies={[{id: 1}, {id: 2}, {id: 3}]}', () => {
         const component = shallow(<MovieList movies={[{id: 1}, {id: 2}, {id: 3}]}/>);
-        expect(component).toMatchSnapshot();
+        expect(component.html()).toMatchSnapshot();
     });
 
 });

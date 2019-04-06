@@ -10,7 +10,7 @@ describe('FilteredMovieList component', () => {
     it('has persistent default snapshot', () => {
         fetch.mockResponseOnce(JSON.stringify({ data: [] }));
         const component = shallow(<FilteredMovieList />);
-        expect(component).toMatchSnapshot();
+        expect(component.html()).toMatchSnapshot();
     });
 
     it('updates state.query when onQueryChange() is called', () => {

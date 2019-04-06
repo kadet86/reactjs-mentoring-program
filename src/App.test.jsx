@@ -8,7 +8,7 @@ describe('App component', () => {
             <App />,
         );
     
-        expect(component).toMatchSnapshot();
+        expect(component.html()).toMatchSnapshot();
     });
 
     it('has proper default state', () => {
@@ -24,9 +24,9 @@ describe('App component', () => {
             <App />,
         );
 
-        component.instance().navigateToMovie({});
+        component.instance().navigateToMovie({genres:[]});
     
-        expect(component).toMatchSnapshot();
+        expect(component.html()).toMatchSnapshot();
     });
 
     it('has persistent snapshot after .navigateToSearch() call', () => {
@@ -36,7 +36,7 @@ describe('App component', () => {
 
         component.instance().navigateToSearch();
     
-        expect(component).toMatchSnapshot();
+        expect(component.html()).toMatchSnapshot();
     });
 });
 

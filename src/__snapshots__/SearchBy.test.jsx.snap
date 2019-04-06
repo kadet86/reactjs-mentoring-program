@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SearchBy component has persistent default snapshot 1`] = `ShallowWrapper {}`;
+exports[`SearchBy component has persistent default snapshot 1`] = `"<div class=\\"search-by\\"><label>SEARCH BY</label><button type=\\"button\\" class=\\"p-button p-component p-button-secondary p-button-text-only\\" data-value=\\"title\\"><span class=\\"p-button-text p-c\\">Title</span></button><button type=\\"button\\" class=\\"p-button p-component p-button-secondary p-button-text-only\\" data-value=\\"genres\\"><span class=\\"p-button-text p-c\\">Genre</span></button></div>"`;
 
-exports[`SearchBy component has persistent snapshot with searchBy="genres" 1`] = `ShallowWrapper {}`;
+exports[`SearchBy component has persistent snapshot with searchBy="genres" 1`] = `"<div class=\\"search-by\\"><label>SEARCH BY</label><button type=\\"button\\" class=\\"p-button p-component p-button-secondary p-button-text-only\\" data-value=\\"title\\"><span class=\\"p-button-text p-c\\">Title</span></button><button type=\\"button\\" class=\\"p-button p-component p-button-danger p-button-text-only\\" data-value=\\"genres\\"><span class=\\"p-button-text p-c\\">Genre</span></button></div>"`;
 
-exports[`SearchBy component has persistent snapshot with searchBy="title" 1`] = `ShallowWrapper {}`;
+exports[`SearchBy component has persistent snapshot with searchBy="title" 1`] = `"<div class=\\"search-by\\"><label>SEARCH BY</label><button type=\\"button\\" class=\\"p-button p-component p-button-danger p-button-text-only\\" data-value=\\"title\\"><span class=\\"p-button-text p-c\\">Title</span></button><button type=\\"button\\" class=\\"p-button p-component p-button-secondary p-button-text-only\\" data-value=\\"genres\\"><span class=\\"p-button-text p-c\\">Genre</span></button></div>"`;
