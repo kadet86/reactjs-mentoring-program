@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SortBy component has persistent default snapshot 1`] = `"<div class=\\"sort-by\\"><label>Sort by</label><a class=\\"sort-by__link\\" data-value=\\"release_date\\" href=\\"javascript:void(0);\\">release date</a><a class=\\"sort-by__link\\" data-value=\\"vote_average\\" href=\\"javascript:void(0);\\">rating</a></div>"`;
+
+exports[`SortBy component has persistent snapshot with sortBy="release_date" 1`] = `"<div class=\\"sort-by\\"><label>Sort by</label><a class=\\"sort-by__link sort-by__link--active\\" data-value=\\"release_date\\" href=\\"javascript:void(0);\\">release date</a><a class=\\"sort-by__link\\" data-value=\\"vote_average\\" href=\\"javascript:void(0);\\">rating</a></div>"`;
+
+exports[`SortBy component has persistent snapshot with sortBy="vote_average" 1`] = `"<div class=\\"sort-by\\"><label>Sort by</label><a class=\\"sort-by__link\\" data-value=\\"release_date\\" href=\\"javascript:void(0);\\">release date</a><a class=\\"sort-by__link sort-by__link--active\\" data-value=\\"vote_average\\" href=\\"javascript:void(0);\\">rating</a></div>"`;

@@ -11,7 +11,7 @@ export default function MoviePage({movie, navigateBack, navigateToMovie}) {
                 <Button onClick={navigateBack} label="SEARCH" className="p-button-secondary" />
                 <Movie movie={movie} />
             </TopSection>
-            <GenreMovieList genre={movie.genres[0]} navigateToMovie={navigateToMovie} />
+            <GenreMovieList genre={movie && movie.genres[0]} navigateToMovie={navigateToMovie} />
         </section>
     );
 }

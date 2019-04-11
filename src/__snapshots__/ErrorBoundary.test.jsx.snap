@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorBoundary component has persistent error snapshot 1`] = `"<h1>Something went wrong...</h1>"`;
+
+exports[`ErrorBoundary component has persistent regular snapshot 1`] = `"<div id=\\"1\\"></div><div id=\\"2\\"></div>"`;
