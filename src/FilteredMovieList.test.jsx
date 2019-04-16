@@ -1,48 +1,39 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import FilteredMovieList from './FilteredMovieList';
+import {FilteredMovieList} from './FilteredMovieList';
 
 describe('FilteredMovieList component', () => {
-    beforeEach(() => {
-        fetch.resetMocks();
-    });
-
     it('has persistent default snapshot', () => {
-        fetch.mockResponseOnce(JSON.stringify({ data: [] }));
-        const component = shallow(<FilteredMovieList />);
+        const component = shallow(<FilteredMovieList {...getProps()} />);
         expect(component.html()).toMatchSnapshot();
     });
 
-    it('updates state.query when onQueryChange() is called', () => {
-        fetch.mockResponseOnce(JSON.stringify({ data: [] }));
-        const component = shallow(<FilteredMovieList />);
+    it('updates query when onQueryChange() is called', () => {
+        const props = getProps();
+        const component = shallow(<FilteredMovieList {...props} />);
 
-        expect(component.state('query')).toBe('');
-        
         component.instance().onQueryChange({target: {value:'new query'}});
 
-        expect(component.state('query')).toBe('new query');
+        expect(props.changeQuery).toHaveBeenCalledTimes(1);
+        expect(props.changeQuery).toHaveBeenCalledWith('new query');
     });
 
-    it('updates state.searchBy when onSearchByChange() is called', () => {
-        fetch.mockResponseOnce(JSON.stringify({ data: [] }));
-        const component = shallow(<FilteredMovieList />);
-
-        expect(component.state('searchBy')).toBe('title');
+    it('updates searchBy when onSearchByChange() is called', () => {
+        const props = getProps();
+        const component = shallow(<FilteredMovieList {...props} />);
         
         component.instance().onSearchByChange({
             preventDefault: () => {}, 
             target: {tagName: 'BUTTON', getAttribute: () => 'genres'},
         });
 
-        expect(component.state('searchBy')).toBe('genres');
+        expect(props.changeSearchBy).toHaveBeenCalledTimes(1);
+        expect(props.changeSearchBy).toHaveBeenCalledWith('genres');
     });
 
-    it('updates state.searchBy when onSearchByChange() is called (span click)', () => {
-        fetch.mockResponseOnce(JSON.stringify({ data: [] }));
-        const component = shallow(<FilteredMovieList />);
-
-        expect(component.state('searchBy')).toBe('title');
+    it('updates searchBy when onSearchByChange() is called (span click)', () => {
+        const props = getProps();
+        const component = shallow(<FilteredMovieList {...props} />);
         
         component.instance().onSearchByChange({
             preventDefault: () => {}, 
@@ -52,32 +43,60 @@ describe('FilteredMovieList component', () => {
             },
         });
 
-        expect(component.state('searchBy')).toBe('genres');
+        expect(props.changeSearchBy).toHaveBeenCalledTimes(1);
+        expect(props.changeSearchBy).toHaveBeenCalledWith('genres');
     });
 
-    it('updates state.sortBy and fetches moview when onSortByChange() is called', () => {
-        fetch.mockResponse(JSON.stringify({ data: [] }));
-        const component = shallow(<FilteredMovieList />);
+    it('updates sortBy and gets movies when onSortByChange() is called', () => {
+        const props = getProps();
+        const component = shallow(<FilteredMovieList {...props} />);
+        props.getMovies.mock.calls = [];
 
-        expect(component.state('sortBy')).toBe('release_date');
-        
         component.instance().onSortByChange({
             preventDefault: () => {}, 
             target: {tagName: 'BUTTON', getAttribute: () => 'rating'},
         });
 
-        expect(component.state('sortBy')).toBe('rating');
-        expect(fetch.mock.calls[1][0]).toEqual('https://reactjs-cdp.herokuapp.com/movies?sortOrder=desc&limit=50&search=&searchBy=title&sortBy=rating');
+        expect(props.changeSortBy).toHaveBeenCalledTimes(1);
+        expect(props.changeSortBy).toHaveBeenCalledWith('rating');
+
+        expect(props.getMovies).toHaveBeenCalledTimes(1);
+        expect(props.getMovies).toHaveBeenCalledWith({
+            limit: 50,
+            query: '',
+            sortBy: 'rating',
+            searchBy: 'title',
+        });
     });
 
     it('fetches movies when onSubmit() is called', () => {
-        fetch.mockResponse(JSON.stringify({ data: [] }));
-        const component = shallow(<FilteredMovieList />);
+        const props = getProps();
+        const component = shallow(<FilteredMovieList {...props} />);
+        props.getMovies.mock.calls = [];
          
         component.instance().onSubmit({
             preventDefault: () => {},
         });
 
-        expect(fetch.mock.calls[1][0]).toEqual('https://reactjs-cdp.herokuapp.com/movies?sortOrder=desc&limit=50&search=&searchBy=title&sortBy=release_date');
+        expect(props.getMovies).toHaveBeenCalledTimes(1);
+        expect(props.getMovies).toHaveBeenCalledWith({
+            limit: 50,
+            query: '',
+            sortBy: 'release_date',
+            searchBy: 'title',
+        });
     });
+
+    function getProps(movies = []) {
+        return {
+            movies,
+            query: '',
+            searchBy: 'title',
+            sortBy: 'release_date',
+            getMovies: jest.fn(),
+            changeQuery: jest.fn(),
+            changeSortBy: jest.fn(),
+            changeSearchBy: jest.fn(),
+        };
+    }
 });

@@ -10,7 +10,7 @@ class GenreMovieList extends React.PureComponent {
             limit: 9,
             sortBy: 'vote_average',
             searchBy: 'genres',
-            searchBy: this.props.genre,
+            query: this.props.genre,
         });
 
         document.documentElement.scrollTop = 0;

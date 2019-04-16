@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 
 const MOVIES_LIMIT = 50;
 
-class FilteredMovieList extends React.PureComponent {
+export class FilteredMovieList extends React.PureComponent {
     componentDidMount() {
         this.fetchMovies();
     }
