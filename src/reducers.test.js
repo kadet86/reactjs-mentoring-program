@@ -1,5 +1,5 @@
 import { moviesReducer } from "./reducers";
-import { changeQuery, changeSearchBy, changeSortBy, showMovies, changeMovie } from "./actions";
+import { changeQuery, changeSearchBy, changeSortBy, showMovies, showMovie } from "./actions";
 
 describe('reducers', () => {
     describe('moviesReducer', () => {
@@ -31,15 +31,6 @@ describe('reducers', () => {
             expect(newState).toEqual({sortBy: 'rating'});
         });
 
-        it('creates proper state for changeMovie() action', () => {
-            const movie = {genres:['action']};
-            const newMovie = {genres:['comedy']};
-            const state = {movie};
-            const newState = moviesReducer(state, changeMovie(newMovie));
-            expect(newState).not.toBe(state);
-            expect(newState).toEqual({movie: newMovie});
-        });
-
         it('creates proper state for showMovies() action', () => {
             const movies = [];
             const newMovies = [{genres:['comedy']}, {genres: ['action']}];
@@ -47,6 +38,15 @@ describe('reducers', () => {
             const newState = moviesReducer(state, showMovies(newMovies));
             expect(newState).not.toBe(state);
             expect(newState).toEqual({movies: newMovies});
+        });
+
+        it('creates proper state for showMovie() action', () => {
+            const movie = {genres:['comedy']};
+            const newMovie = {genres: ['action']};
+            const state = {movie};
+            const newState = moviesReducer(state, showMovie(newMovie));
+            expect(newState).not.toBe(state);
+            expect(newState).toEqual({movie: newMovie});
         });
     });
 });

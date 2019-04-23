@@ -24,9 +24,6 @@ class GenreMovieList extends React.PureComponent {
         if (this.props.genre !== prevProps.genre) {
             this.fetchMovies();
         }
-        else {
-            document.documentElement.scrollTop = 0;
-        }
     }
 
     render() {

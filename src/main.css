@@ -43,11 +43,27 @@ body {
     width: 100%;
 }
 
+.filtered-movie-list .p-toolbar {
+    height: 40px;
+}
+
 .filtered-movie-list h1 {
     margin: 0; 
     margin-bottom: 10px; 
     font-size: 14px; 
     color: white;
+}
+
+.filtered-movie-list .no-results {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filtered-movie-list .no-results h1 {
+    color: black;
+    font-size: 36px;
 }
 
 .search-form {
