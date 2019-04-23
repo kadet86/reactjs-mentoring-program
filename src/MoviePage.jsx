@@ -1,17 +1,13 @@
 import React from 'react';
 import Movie from './Movie';
 import GenreMovieList from './GenreMovieList';
-import { Button } from 'primereact/button';
+import {Button} from 'primereact/button';
 import TopSection from './TopSection';
-import { getMovie, showMovie } from './actions';
-import { connect } from "react-redux";
+import {getMovie, showMovie} from './actions';
+import {connect} from "react-redux";
 import {buildSearchPath} from './FilteredMovieList';
 
 class MoviePage extends React.PureComponent {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         this.fetchMovie();
     }
@@ -24,13 +20,7 @@ class MoviePage extends React.PureComponent {
     }
 
     fetchMovie() {
-        const {id} = this.props.match.params;
-        if (!id) {
-            this.props.showMovie(null);
-            return;
-        }
-
-        this.props.getMovie({id});
+        this.props.getMovie({id: this.props.match.params.id});
     }
 
     navigateToSearch = () => {

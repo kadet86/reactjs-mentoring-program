@@ -48,11 +48,11 @@ export class FilteredMovieList extends React.PureComponent {
         }
     }
 
-    navigate() {
-        this.props.history.push(buildSearchPath(this.props));
+    navigate(params = {}) {
+        this.props.history.push(buildSearchPath({...this.props, ...params}));
     }
 
-    fetchMovies(params = {}) {
+    fetchMovies() {
         const {query, searchBy, sortBy} = this.props.match.params;
         if (!query) {
             this.props.showMovies([]);
@@ -64,7 +64,6 @@ export class FilteredMovieList extends React.PureComponent {
             query,
             searchBy,
             sortBy,
-            ...params,
         });
     }
 
@@ -75,7 +74,7 @@ export class FilteredMovieList extends React.PureComponent {
     onSortByChange = (event) => {
         const sortBy = event.target.getAttribute('data-value');
         this.props.changeSortBy(sortBy);
-        this.navigate();
+        this.navigate({sortBy});
     }
 
     onSearchByChange = (event) => {
