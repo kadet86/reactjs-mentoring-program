@@ -1,42 +1,53 @@
 import React from 'react';
 import App from './App';
-import {shallow} from 'enzyme';
+import {shallow, mount} from 'enzyme';
+import {Provider} from "react-redux";
 
 describe('App component', () => {
+    beforeEach(() => {
+        fetch.resetMocks();
+        fetch.mockResponse(JSON.stringify({ data: [] }));
+    });
+
     it('has persistent default snapshot', () => {
-        const component = shallow(
-            <App />,
-        );
-    
+        const {store} = createTestStore();
+        const component = createComponent(store);
         expect(component.html()).toMatchSnapshot();
     });
 
-    it('has proper default state', () => {
-        const component = shallow(
-            <App />,
-        );
-    
-        expect(component.state()).toEqual({movie: null});
-    });
+    it('has persistent snapshot after a movie is selected', () => {
+        const {store} = createTestStore({
+            movies: [
+                { genres: ['action'], id: 1 },
+            ],
+        });
+        const component = createComponent(store, true);
 
-    it('has persistent snapshot after .navigateMovie() call', () => {
-        const component = shallow(
-            <App />,
-        );
-
-        component.instance().navigateToMovie({genres:[]});
-    
+        component.find('.movie-list-item a').first().simulate('click');
+        
         expect(component.html()).toMatchSnapshot();
     });
 
-    it('has persistent snapshot after .navigateToSearch() call', () => {
-        const component = shallow(
-            <App />,
-        );
+    it('has persistent snapshot after navigating back to search page', () => {
+        const {store} = createTestStore({
+            movie: { genres: ['action'], id: 1 },
+        });
+        const component = createComponent(store, true);
 
-        component.instance().navigateToSearch();
-    
+        component.find('.movie-page button').first().simulate('click');
+        
         expect(component.html()).toMatchSnapshot();
     });
+
+    function createComponent(store, doMount = false) {
+        const renderer = doMount ? mount : shallow;
+        const component = renderer(
+            <Provider store={store}>
+                <App />
+            </Provider>,
+        );
+
+        return component;
+    }
 });
 

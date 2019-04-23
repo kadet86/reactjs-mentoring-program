@@ -2,37 +2,37 @@ import React, {Component} from 'react';
 import ErrorBoundary from './ErrorBoundary';
 import FilteredMovieList from './FilteredMovieList';
 import MoviePage from './MoviePage';
+import { connect } from 'react-redux';
+import {changeMovie} from './actions';
+
 import './main.css';
 import 'primereact/resources/themes/nova-light/theme.css';
 
-export default class App extends Component {
-    constructor(props) {
-        super(props);
+const App = ({changeMovie, movie}) => {
+    const navigateToMovie = (movie) => {
+        changeMovie(movie);
+    };
 
-        this.state = {movie: null};
-    }
+    const navigateToSearch = () => {
+        changeMovie(null);
+    };
 
-    navigateToMovie = (movie) => {
-        this.setState({movie});
-    }
-
-    navigateToSearch = () => {
-        this.setState({movie: null});
-    }
-
-    render() {
-        return (
-            <ErrorBoundary>
-                <section className="app">
-                    {!this.state.movie && 
-                    <FilteredMovieList navigateToMovie={this.navigateToMovie}/> }
-                    {this.state.movie && 
-                    <MoviePage 
-                        movie={this.state.movie} 
-                        navigateBack={this.navigateToSearch}
-                        navigateToMovie={this.navigateToMovie} /> }
-                </section>
-            </ErrorBoundary>
-        );
-    }
+    return (
+        <ErrorBoundary>
+            <section className="app">
+                {!movie && 
+                <FilteredMovieList navigateToMovie={navigateToMovie}/> }
+                {movie && 
+                <MoviePage 
+                    movie={movie} 
+                    navigateBack={navigateToSearch}
+                    navigateToMovie={navigateToMovie} /> }
+            </section>
+        </ErrorBoundary>
+    );
 }
+
+const mapStateToProps = (state) => ({movie: state.movie});
+const mapDispatchToProps = {changeMovie};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -3,43 +3,35 @@ import MovieList from './MovieList';
 import SearchForm from './SearchForm';
 import SearchResultsInfo from './SearchResultsInfo';
 import TopSection from './TopSection';
+import { getMovies, changeSortBy, changeQuery, changeSearchBy } from './actions';
 
-const URL = 'https://reactjs-cdp.herokuapp.com/movies';
+import { connect } from "react-redux";
 
-export default class FilteredMovieList extends React.PureComponent {
-    constructor(props) {
-        super(props);
+const MOVIES_LIMIT = 50;
 
-        this.state = {
-            movies: [],
-            query: '',
-            searchBy: 'title',
-            sortBy: 'release_date'
-        };
-    }
-
-    fetchMovies() {
-        const {query, searchBy, sortBy} = this.state;
-
-        fetch(`${URL}?sortOrder=desc&limit=50&search=${query}&searchBy=${searchBy}&sortBy=${sortBy}`)
-            .then(res => res.json())
-            .then(json => {
-                this.setState({movies: json.data});
-            });
-    }
-
+export class FilteredMovieList extends React.PureComponent {
     componentDidMount() {
         this.fetchMovies();
     }
 
+    fetchMovies(params = {}) {
+        this.props.getMovies({
+            limit: MOVIES_LIMIT,
+            query: this.props.query,
+            searchBy: this.props.searchBy,
+            sortBy: this.props.sortBy,
+            ...params,
+        });
+    }
+
     onQueryChange = (event) => {
-        this.setState({query: event.target.value});
+        this.props.changeQuery(event.target.value);
     }
 
     onSortByChange = (event) => {
-        this.setState({sortBy: event.target.getAttribute('data-value')}, () => {
-            this.fetchMovies();
-        });
+        const sortBy = event.target.getAttribute('data-value');
+        this.props.changeSortBy(sortBy);
+        this.fetchMovies({sortBy});
     }
 
     onSearchByChange = (event) => {
@@ -48,7 +40,7 @@ export default class FilteredMovieList extends React.PureComponent {
         if (target.tagName !== 'BUTTON') {
             target = target.parentNode;
         }
-        this.setState({searchBy: target.getAttribute('data-value')});
+        this.props.changeSearchBy(target.getAttribute('data-value'));
     }
 
     onSubmit = (event) => {
@@ -62,20 +54,31 @@ export default class FilteredMovieList extends React.PureComponent {
                 <TopSection>
                     <h1>FIND YOUR MOVIE</h1>
                     <SearchForm 
-                        query={this.state.query} 
-                        searchBy={this.state.searchBy} 
+                        query={this.props.query} 
+                        searchBy={this.props.searchBy} 
                         onSearchByChange={this.onSearchByChange}
                         onQueryChange={this.onQueryChange}
                         onSubmit={this.onSubmit} />
                 </TopSection>
                 <SearchResultsInfo 
-                    resultsCount={this.state.movies.length}
-                    sortBy={this.state.sortBy} 
+                    resultsCount={this.props.movies.length}
+                    sortBy={this.props.sortBy} 
                     onSortByChange={this.onSortByChange} />
                 <MovieList 
-                    movies={this.state.movies} 
+                    movies={this.props.movies} 
                     navigateToMovie={this.props.navigateToMovie} />
             </section>
         );
     }
 }
+
+const mapStateToProps = (state) => ({
+    query: state.query,
+    sortBy: state.sortBy,
+    searchBy: state.searchBy,
+    movies: state.movies,
+});
+
+const mapDispatchToProps = {getMovies, changeSortBy, changeQuery, changeSearchBy};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilteredMovieList);
