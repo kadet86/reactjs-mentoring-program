@@ -1,19 +1,22 @@
-import ReactDOM from 'react-dom';
 import React from 'react';
-import App from './App';
-import {createStore, applyMiddleware} from 'redux';
-import { Provider } from "react-redux";
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import { moviesReducer, initialState } from './reducers';
+import App from './App';
+import ErrorBoundary from './ErrorBoundary';
+import { initialState, moviesReducer } from './reducers';
 
-const store = createStore(
-    moviesReducer,
-    initialState,
-    applyMiddleware(thunk),
-);
+const store = createStore(moviesReducer, initialState, applyMiddleware(thunk));
 
 ReactDOM.render(
     <Provider store={store}>
-        <App/>
+        <ErrorBoundary>
+            <Router>
+                <App />
+            </Router>
+        </ErrorBoundary>
     </Provider>,
-    document.getElementById('root'));
+    document.getElementById('root')
+);
