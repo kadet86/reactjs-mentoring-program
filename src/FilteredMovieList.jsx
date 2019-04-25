@@ -3,13 +3,19 @@ import MovieList from './MovieList';
 import SearchForm from './SearchForm';
 import SearchResultsInfo from './SearchResultsInfo';
 import TopSection from './TopSection';
-import {Toolbar} from 'primereact/toolbar';
-import { getMovies, changeSortBy, changeQuery, changeSearchBy, showMovies } from './actions';
-import { connect } from "react-redux";
+import { Toolbar } from 'primereact/toolbar';
+import {
+    getMovies,
+    changeSortBy,
+    changeQuery,
+    changeSearchBy,
+    showMovies,
+} from './actions';
+import { connect } from 'react-redux';
 
 const MOVIES_LIMIT = 50;
 
-export function buildSearchPath({query, searchBy, sortBy}) {
+export function buildSearchPath({ query, searchBy, sortBy }) {
     return `/search/${encodeURIComponent(query)}/${searchBy}/${sortBy}`;
 }
 
@@ -21,7 +27,7 @@ export class FilteredMovieList extends React.PureComponent {
     }
 
     syncParams() {
-        const {query, searchBy, sortBy} = this.props.match.params;
+        const { query, searchBy, sortBy } = this.props.match.params;
 
         if (query !== this.props.query) {
             this.props.changeQuery(query);
@@ -34,7 +40,6 @@ export class FilteredMovieList extends React.PureComponent {
         if (sortBy && sortBy !== this.props.sortBy) {
             this.props.changeSortBy(sortBy);
         }
-        
     }
 
     componentDidMount() {
@@ -49,11 +54,11 @@ export class FilteredMovieList extends React.PureComponent {
     }
 
     navigate(params = {}) {
-        this.props.history.push(buildSearchPath({...this.props, ...params}));
+        this.props.history.push(buildSearchPath({ ...this.props, ...params }));
     }
 
     fetchMovies() {
-        const {query, searchBy, sortBy} = this.props.match.params;
+        const { query, searchBy, sortBy } = this.props.match.params;
         if (!query) {
             this.props.showMovies([]);
             return;
@@ -67,29 +72,29 @@ export class FilteredMovieList extends React.PureComponent {
         });
     }
 
-    onQueryChange = (event) => {
+    onQueryChange = event => {
         this.props.changeQuery(event.target.value);
-    }
+    };
 
-    onSortByChange = (event) => {
+    onSortByChange = event => {
         const sortBy = event.target.getAttribute('data-value');
         this.props.changeSortBy(sortBy);
-        this.navigate({sortBy});
-    }
+        this.navigate({ sortBy });
+    };
 
-    onSearchByChange = (event) => {
+    onSearchByChange = event => {
         event.preventDefault();
         let target = event.target;
         if (target.tagName !== 'BUTTON') {
             target = target.parentNode;
         }
         this.props.changeSearchBy(target.getAttribute('data-value'));
-    }
+    };
 
-    onSubmit = (event) => {
+    onSubmit = event => {
         event.preventDefault();
         this.navigate();
-    }
+    };
 
     render() {
         const noResults = !this.props.movies || this.props.movies.length === 0;
@@ -97,44 +102,56 @@ export class FilteredMovieList extends React.PureComponent {
             <section className="filtered-movie-list">
                 <TopSection>
                     <h1>FIND YOUR MOVIE</h1>
-                    <SearchForm 
-                        query={this.props.query} 
-                        searchBy={this.props.searchBy} 
+                    <SearchForm
+                        query={this.props.query}
+                        searchBy={this.props.searchBy}
                         onSearchByChange={this.onSearchByChange}
                         onQueryChange={this.onQueryChange}
-                        onSubmit={this.onSubmit} />
+                        onSubmit={this.onSubmit}
+                    />
                 </TopSection>
-                {!noResults &&
-                <> 
-                    <SearchResultsInfo 
-                        resultsCount={this.props.movies.length}
-                        sortBy={this.props.sortBy} 
-                        onSortByChange={this.onSortByChange} />
-                    <MovieList 
-                        movies={this.props.movies} 
-                        navigateToMovie={this.props.navigateToMovie} />
-                </>
-                }
-                {noResults && 
-                <>
-                    <Toolbar />
-                    <section className="no-results">
-                        <h1>No films found</h1>
-                    </section>
-                </>
-                }
+                {!noResults && (
+                    <>
+                        <SearchResultsInfo
+                            resultsCount={this.props.movies.length}
+                            sortBy={this.props.sortBy}
+                            onSortByChange={this.onSortByChange}
+                        />
+                        <MovieList
+                            movies={this.props.movies}
+                            navigateToMovie={this.props.navigateToMovie}
+                        />
+                    </>
+                )}
+                {noResults && (
+                    <>
+                        <Toolbar />
+                        <section className="no-results">
+                            <h1>No films found</h1>
+                        </section>
+                    </>
+                )}
             </section>
         );
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     query: state.query,
     sortBy: state.sortBy,
     searchBy: state.searchBy,
     movies: state.movies,
 });
 
-const mapDispatchToProps = {getMovies, changeSortBy, changeQuery, changeSearchBy, showMovies};
+const mapDispatchToProps = {
+    getMovies,
+    changeSortBy,
+    changeQuery,
+    changeSearchBy,
+    showMovies,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilteredMovieList);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(FilteredMovieList);

@@ -1,7 +1,7 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import { shallow } from 'enzyme';
 import MoviePage from './MoviePage';
-import {Provider} from "react-redux";
+import { Provider } from 'react-redux';
 
 describe('MoviePage component', () => {
     beforeEach(() => {
@@ -10,22 +10,24 @@ describe('MoviePage component', () => {
     });
 
     it('has persistent snapshot with movie={{genres: []}}', () => {
-        const {store} = createTestStore();
+        const { store } = createTestStore();
         const component = createComponent(store);
         expect(component.html()).toMatchSnapshot();
     });
 
     it('has persistent snapshot with movie={{genres: ["action"]}}', () => {
-        const {store} = createTestStore();
-        const component = createComponent(store, {movie: {genres: ['action']}});
+        const { store } = createTestStore({
+            movie: { genres: ['action'] },
+        });
+        const component = createComponent(store);
         expect(component.html()).toMatchSnapshot();
     });
 
-    function createComponent(store, props = {movie: {genres: []}}) {
+    function createComponent(store) {
         const component = shallow(
             <Provider store={store}>
-                <MoviePage {...props} />
-            </Provider>,
+                <MoviePage />
+            </Provider>
         );
 
         return component;

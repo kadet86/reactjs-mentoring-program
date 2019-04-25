@@ -1,7 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MovieListItem component has persistent snapshot with movie={{}} 1`] = `"<div class=\\"movie-list-item\\"><a><img/></a><div><h2></h2><span class=\\"movie-list-item__date\\"></span></div><div class=\\"movie-list-item__genres\\"></div></div>"`;
-
-exports[`MovieListItem component has persistent snapshot with movie={{genres:["action", "comedy"]}} 1`] = `"<div class=\\"movie-list-item\\"><a><img/></a><div><h2></h2><span class=\\"movie-list-item__date\\"></span></div><div class=\\"movie-list-item__genres\\">action &amp; comedy</div></div>"`;
-
-exports[`MovieListItem component has persistent snapshot with movie={{release_date:"2018-02-03"}} 1`] = `"<div class=\\"movie-list-item\\"><a><img/></a><div><h2></h2><span class=\\"movie-list-item__date\\">2018</span></div><div class=\\"movie-list-item__genres\\"></div></div>"`;
+exports[`MovieListItem component has persistent snapshot 1`] = `"<div class=\\"movie-list-item\\"><a href=\\"/film/1\\"><img/></a><div><h2></h2><span class=\\"movie-list-item__date\\">2018</span></div><div class=\\"movie-list-item__genres\\">action &amp; comedy</div></div>"`;
