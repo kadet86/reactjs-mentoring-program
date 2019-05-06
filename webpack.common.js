@@ -5,7 +5,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: "./src/index.jsx",
     mode: "development",
+    devServer: {
+        historyApiFallback: true,
+    },
     output: {
+        publicPath: '/',
         path: path.resolve(__dirname, 'dist'),
         filename: "./bundle.js"
     },

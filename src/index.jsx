@@ -1,31 +1,22 @@
-import ReactDOM from 'react-dom';
 import React from 'react';
-import App from './App';
-import {createStore, applyMiddleware} from 'redux';
-import { Provider } from "react-redux";
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import { moviesReducer } from './reducers';
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage';
-import { PersistGate } from 'redux-persist/integration/react';
+import App from './App';
+import ErrorBoundary from './ErrorBoundary';
+import { initialState, moviesReducer } from './reducers';
 
-const persistConfig = {
-  key: 'appstate',
-  storage,
-};
-
-const persistedReducer = persistReducer(persistConfig, moviesReducer);
-
-const store = createStore(
-    persistedReducer,
-    applyMiddleware(thunk),
-);
-const persistor = persistStore(store);
+const store = createStore(moviesReducer, initialState, applyMiddleware(thunk));
 
 ReactDOM.render(
     <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-            <App/>
-        </PersistGate>
+        <ErrorBoundary>
+            <Router>
+                <App />
+            </Router>
+        </ErrorBoundary>
     </Provider>,
-    document.getElementById('root'));
+    document.getElementById('root')
+);

@@ -1,11 +1,12 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
-export default function MovieListItem({movie, navigateToMovie}) {
+export default function MovieListItem({movie}) {
     return (
         <div className="movie-list-item">
-            <a onClick={() => navigateToMovie(movie)}>
+            <Link to={`/film/${movie.id}`}>
                 <img src={movie.poster_path} />
-            </a>
+            </Link>
             <div>
                 <h2>{movie.title}</h2>
                 <span className="movie-list-item__date">

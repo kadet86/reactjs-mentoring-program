@@ -15,8 +15,9 @@ export default function SearchForm({
             <InputText 
                 className="search-input"
                 placeholder="Search..." 
-                type="text" 
-                value={query} 
+                type="text"
+                required
+                value={query || ''} 
                 onChange={onQueryChange} />
             <SearchBy 
                 searchBy={searchBy} 

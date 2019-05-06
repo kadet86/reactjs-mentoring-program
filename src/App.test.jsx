@@ -1,53 +1,61 @@
 import React from 'react';
 import App from './App';
-import {shallow, mount} from 'enzyme';
-import {Provider} from "react-redux";
+import { shallow, mount } from 'enzyme';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 
 describe('App component', () => {
     beforeEach(() => {
         fetch.resetMocks();
-        fetch.mockResponse(JSON.stringify({ data: [] }));
+        fetch.once(JSON.stringify({ data: [{ genres: ['action'], id: 1 }] }));
     });
 
-    it('has persistent default snapshot', () => {
-        const {store} = createTestStore();
-        const component = createComponent(store);
+    it('shows 404 view for invalid path', () => {
+        const { store } = createTestStore();
+        const component = createComponent(store, '/invalid-path');
         expect(component.html()).toMatchSnapshot();
     });
 
-    it('has persistent snapshot after a movie is selected', () => {
-        const {store} = createTestStore({
-            movies: [
-                { genres: ['action'], id: 1 },
-            ],
-        });
-        const component = createComponent(store, true);
-
-        component.find('.movie-list-item a').first().simulate('click');
-        
+    it('shows no results view for / path', () => {
+        const { store } = createTestStore();
+        const component = createComponent(store, '/', true);
         expect(component.html()).toMatchSnapshot();
     });
 
-    it('has persistent snapshot after navigating back to search page', () => {
-        const {store} = createTestStore({
-            movie: { genres: ['action'], id: 1 },
-        });
-        const component = createComponent(store, true);
-
-        component.find('.movie-page button').first().simulate('click');
-        
+    it('shows filtered movie list for /search/:query path', () => {
+        const movies = [{ genres: ['action'], id: 1 }];
+        const { store } = createTestStore({ movies });
+        const component = createComponent(store, '/search/green', true);
         expect(component.html()).toMatchSnapshot();
     });
 
-    function createComponent(store, doMount = false) {
+    it('shows movie page for /film/:id path', () => {
+        const movies = [{ genres: ['action'], id: 1 }];
+        const movie = {
+            genres: ['action'],
+            title: 'action movie',
+            id: 1,
+        };
+
+        fetch.once(JSON.stringify(movie));
+        fetch.once(JSON.stringify({ data: movies }));
+
+        const { store } = createTestStore({ movie, movies });
+        const component = createComponent(store, '/film/1', true);
+
+        expect(component.html()).toMatchSnapshot();
+    });
+
+    function createComponent(store, path, doMount = false) {
         const renderer = doMount ? mount : shallow;
         const component = renderer(
             <Provider store={store}>
-                <App />
-            </Provider>,
+                <MemoryRouter initialEntries={[path]}>
+                    <App />
+                </MemoryRouter>
+            </Provider>
         );
 
         return component;
     }
 });
-
