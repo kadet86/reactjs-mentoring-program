@@ -1,14 +1,14 @@
 import React from 'react';
 import Movie from './Movie';
 import GenreMovieList from './GenreMovieList';
-import {Button} from 'primereact/button';
+import { Button } from 'primereact/button';
 import TopSection from './TopSection';
-import {getMovie, showMovie} from './actions';
-import {connect} from "react-redux";
-import {buildSearchPath} from './FilteredMovieList';
+import { getMovie, showMovie } from './actions';
+import { connect } from 'react-redux';
+import { buildSearchPath } from './FilteredMovieList';
 
 class MoviePage extends React.PureComponent {
-    componentDidMount() {
+    UNSAFE_componentWillMount() {
         this.fetchMovie();
     }
 
@@ -20,12 +20,12 @@ class MoviePage extends React.PureComponent {
     }
 
     fetchMovie() {
-        this.props.getMovie({id: this.props.match.params.id});
+        this.props.getMovie({ id: this.props.match.params.id });
     }
 
     navigateToSearch = () => {
         this.props.history.push(buildSearchPath(this.props));
-    }
+    };
 
     render() {
         const movie = this.props.movie || {};
@@ -33,7 +33,11 @@ class MoviePage extends React.PureComponent {
         return (
             <section className="movie-page">
                 <TopSection>
-                    <Button onClick={this.navigateToSearch} label="SEARCH" className="p-button-secondary" />
+                    <Button
+                        onClick={this.navigateToSearch}
+                        label="SEARCH"
+                        className="p-button-secondary"
+                    />
                     <Movie movie={movie} />
                 </TopSection>
                 <GenreMovieList genre={genre} />
@@ -42,13 +46,16 @@ class MoviePage extends React.PureComponent {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     query: state.query,
     searchBy: state.searchBy,
     sortBy: state.sortBy,
     movie: state.movie,
 });
 
-const mapDispatchToProps = {getMovie, showMovie};
+const mapDispatchToProps = { getMovie, showMovie };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MoviePage);

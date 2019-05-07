@@ -1,4 +1,4 @@
-import 'primereact/resources/themes/nova-light/theme.css';
+import '../node_modules/primereact/resources/themes/nova-light/theme.css';
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import FilteredMovieList from './FilteredMovieList';

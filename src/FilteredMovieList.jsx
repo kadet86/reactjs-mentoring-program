@@ -42,7 +42,7 @@ export class FilteredMovieList extends React.PureComponent {
         }
     }
 
-    componentDidMount() {
+    UNSAFE_componentWillMount() {
         this.fetchMovies();
     }
 
