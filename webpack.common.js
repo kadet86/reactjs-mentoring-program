@@ -1,42 +1,36 @@
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+
+const isDevMod = process.env.NODE_ENV === 'development';
 
 module.exports = {
-    entry: "./src/index.jsx",
-    mode: "development",
-    devServer: {
-        historyApiFallback: true,
-    },
+    mode: process.env.NODE_ENV,
+
     output: {
-        publicPath: '/',
-        path: path.resolve(__dirname, 'dist'),
-        filename: "./bundle.js"
+        filename: 'js/[name].js',
+        path: path.resolve('./public'),
     },
+
     resolve: {
-        extensions: ['.js', '.jsx']
-      },
-    plugins: [
-        new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({
-            template: './public/index.html',
-        }),
-    ],
+        extensions: ['.js', '.jsx'],
+        alias: {
+            'react-dom': '@hot-loader/react-dom',
+        },
+    },
+
     module: {
         rules: [
             {
-                test: /\.m?jsx?$/,
+                test: /\.jsx?$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader"
-                }
+                use: 'babel-loader',
             },
-            { test: /\.css$/, use: ['style-loader', 'css-loader'] },
-            {test: /\.(png|gif|jpe|jpg|woff|woff2|eot|ttf|svg)(\?.*$|$)/, loader: 'file-loader'},
-            {
-                test: /\.svg$/,
-                loader: 'svg-inline-loader'
-            }
         ],
     },
+
+    plugins: [
+        isDevMod
+            ? new webpack.NamedModulesPlugin()
+            : new webpack.HashedModuleIdsPlugin(),
+    ],
 };
