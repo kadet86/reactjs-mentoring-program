@@ -1,30 +1,32 @@
-import React from 'react';
-import Movie from './Movie';
-import GenreMovieList from './GenreMovieList';
+import Router from 'next/router';
 import { Button } from 'primereact/button';
-import TopSection from './TopSection';
-import { getMovie, showMovie } from './actions';
+import React from 'react';
 import { connect } from 'react-redux';
-import { buildSearchPath } from './FilteredMovieList';
+import { getMovie, showMovie } from './actions';
+import { buildSearchRoute } from './FilteredMovieList';
+import GenreMovieList from './GenreMovieList';
+import Movie from './Movie';
+import TopSection from './TopSection';
 
 class MoviePage extends React.PureComponent {
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         this.fetchMovie();
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.match.params.id !== this.props.match.params.id) {
+        if (prevProps.router.query.id !== this.props.router.query.id) {
             document.documentElement.scrollTop = 0;
             this.fetchMovie();
         }
     }
 
     fetchMovie() {
-        this.props.getMovie({ id: this.props.match.params.id });
+        this.props.getMovie({ id: this.props.router.query.id });
     }
 
     navigateToSearch = () => {
-        this.props.history.push(buildSearchPath(this.props));
+        const { url, as } = buildSearchRoute(this.props);
+        Router.push(url, as);
     };
 
     render() {

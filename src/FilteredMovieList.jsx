@@ -1,22 +1,34 @@
+import Router from 'next/router';
+import { Toolbar } from 'primereact/toolbar';
 import React from 'react';
+import { connect } from 'react-redux';
+import {
+    changeQuery,
+    changeSearchBy,
+    changeSortBy,
+    getMovies,
+    showMovies,
+} from './actions';
 import MovieList from './MovieList';
 import SearchForm from './SearchForm';
 import SearchResultsInfo from './SearchResultsInfo';
 import TopSection from './TopSection';
-import { Toolbar } from 'primereact/toolbar';
-import {
-    getMovies,
-    changeSortBy,
-    changeQuery,
-    changeSearchBy,
-    showMovies,
-} from './actions';
-import { connect } from 'react-redux';
 
-const MOVIES_LIMIT = 50;
+export const MOVIES_LIMIT = 50;
 
-export function buildSearchPath({ query, searchBy, sortBy }) {
-    return `/search/${encodeURIComponent(query)}/${searchBy}/${sortBy}`;
+export function buildSearchRoute({ query, searchBy, sortBy }) {
+    if (!query) {
+        return {
+            url: '/search',
+            as: '/search',
+        };
+    }
+
+    query = encodeURIComponent(query);
+    return {
+        url: `/search?query=${query}&searchBy=${searchBy}&sortBy=${sortBy}`,
+        as: `/search/${query}/${searchBy}/${sortBy}`,
+    };
 }
 
 export class FilteredMovieList extends React.PureComponent {
@@ -27,7 +39,7 @@ export class FilteredMovieList extends React.PureComponent {
     }
 
     syncParams() {
-        const { query, searchBy, sortBy } = this.props.match.params;
+        const { query, searchBy, sortBy } = this.props.router.query;
 
         if (query !== this.props.query) {
             this.props.changeQuery(query);
@@ -42,23 +54,24 @@ export class FilteredMovieList extends React.PureComponent {
         }
     }
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         this.fetchMovies();
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.location !== this.props.location) {
+        if (prevProps.router.asPath !== this.props.router.asPath) {
             this.syncParams();
             this.fetchMovies();
         }
     }
 
     navigate(params = {}) {
-        this.props.history.push(buildSearchPath({ ...this.props, ...params }));
+        const { url, as } = buildSearchRoute({ ...this.props, ...params });
+        Router.push(url, as);
     }
 
     fetchMovies() {
-        const { query, searchBy, sortBy } = this.props.match.params;
+        const { query, searchBy, sortBy } = this.props.router.query;
         if (!query) {
             this.props.showMovies([]);
             return;

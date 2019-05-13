@@ -1,21 +1,17 @@
-import { createStore, applyMiddleware } from 'redux';
-import createSagaMiddleware, { END } from 'redux-saga';
-
-import { moviesReducer } from './reducers';
+import { applyMiddleware, createStore } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import { rootSaga } from './actions';
+import { initialState, moviesReducer } from './reducers';
 
-const sagaMiddleware = createSagaMiddleware();
-
-export default initialState => {
+export default (state = initialState) => {
+    const sagaMiddleware = createSagaMiddleware();
     const store = createStore(
         moviesReducer,
-        initialState,
+        state,
         applyMiddleware(sagaMiddleware)
     );
 
-    sagaMiddleware.run(rootSaga);
-    store.runSaga = () => sagaMiddleware.run(rootSaga);
-    store.close = () => store.dispatch(END);
+    store.sagaTask = sagaMiddleware.run(rootSaga);
 
     return store;
 };
