@@ -1,10 +1,10 @@
+import Link from 'next/link';
 import React from 'react';
-import {Link} from 'react-router-dom';
 
-export default function MovieListItem({movie}) {
+export default function MovieListItem({ movie, query }) {
     return (
         <div className="movie-list-item">
-            <Link to={`/film/${movie.id}`}>
+            <Link href={`/film?id=${movie.id}`} as={`/film/${movie.id}`}>
                 <img src={movie.poster_path} />
             </Link>
             <div>
@@ -13,7 +13,9 @@ export default function MovieListItem({movie}) {
                     {movie.release_date && movie.release_date.substr(0, 4)}
                 </span>
             </div>
-            <div className="movie-list-item__genres">{movie.genres && movie.genres.join(' & ')}</div>
+            <div className="movie-list-item__genres">
+                {movie.genres && movie.genres.join(' & ')}
+            </div>
         </div>
     );
 }

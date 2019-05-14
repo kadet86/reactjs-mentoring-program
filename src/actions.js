@@ -1,5 +1,6 @@
+import 'isomorphic-fetch';
 import { createAction } from 'redux-actions';
-import { call, put, all, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 const GET_MOVIES = 'GET_MOVIES';
 const GET_MOVIE = 'GET_MOVIE_BY_ID';
@@ -18,10 +19,10 @@ export function* getMoviesAsync(action) {
     const { query, searchBy, sortBy, limit } = action.payload;
     const response = yield call(
         fetch,
-        `${URL}/movies?sortOrder=desc&limit=${limit}&search=${query}&searchBy=${searchBy}&sortBy=${sortBy}`
+        `${URL}/movies?sortOrder=desc&limit=${limit}&search=${query}&searchBy=${searchBy ||
+            'title'}&sortBy=${sortBy || 'release_date'}`
     );
     const json = yield response.json();
-
     yield put(showMovies(json && json.data));
 }
 export function* watchGetMovies() {

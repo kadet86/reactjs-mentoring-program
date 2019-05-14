@@ -5,11 +5,15 @@
     "main": "server/index.js",
     "dependencies": {
         "@hot-loader/react-dom": "^16.8.6",
+        "@zeit/next-css": "^1.0.1",
         "babel-polyfill": "^6.26.0",
         "classnames": "^2.2.6",
         "express": "^4.16.4",
         "isomorphic-fetch": "^2.2.1",
         "jest": "^24.5.0",
+        "next": "^8.1.0",
+        "next-redux-saga": "^4.0.2",
+        "next-redux-wrapper": "^3.0.0-alpha.2",
         "primereact": "^3.1.0",
         "react": "^16.8.4",
         "react-dom": "^16.8.6",
@@ -56,12 +60,9 @@
     },
     "babel": {
         "presets": [
-            "@babel/env",
-            "@babel/react"
+            "next/babel"
         ],
-        "plugins": [
-            "@babel/plugin-proposal-class-properties"
-        ]
+        "plugins": []
     },
     "jest": {
         "testEnvironment": "node",
@@ -78,9 +79,9 @@
         }
     },
     "scripts": {
-        "start": "cross-env NODE_ENV=development  node ./server",
-        "build": "cross-env NODE_ENV=production webpack --config webpack.client.js",
-        "prod": "cross-env NODE_ENV=production  node ./server",
+        "dev": "node server.js",
+        "build": "next build",
+        "start": "cross-env NODE_ENV=production node server.js",
         "test": "jest",
         "cypress": "cypress open"
     },
