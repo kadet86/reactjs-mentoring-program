@@ -28,20 +28,20 @@ const StyledButton = styled.button`
         background-color: #f4f4f4;
         border: 1px solid #f4f4f4;
     }
-`;
 
-const ButtonText = styled.span`
-    padding: 0.429em 1em;
-    display: block;
-    line-height: normal;
-    box-sizing: border-box;
+    span {
+        padding: 0.429em 1em;
+        display: block;
+        line-height: normal;
+        box-sizing: border-box;
+    }
 `;
 
 export default function Button(props) {
     const { label, ...buttonProps } = props;
     return (
         <StyledButton {...buttonProps}>
-            <ButtonText>{props.label}</ButtonText>
+            <span>{props.label}</span>
         </StyledButton>
     );
 }

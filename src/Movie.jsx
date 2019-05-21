@@ -12,6 +12,7 @@ export type FullMovieInfo = {
     overview: string,
     genres?: string[],
 };
+
 type Props = {
     movie: FullMovieInfo,
 };

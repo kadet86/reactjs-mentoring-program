@@ -6,7 +6,7 @@ type Props = {
     children?: React.Node,
 };
 
-const Section = styled.section`
+const TopSectionContainer = styled.section`
     position: relative;
     padding-top: 40px;
     padding-bottom: 20px;
@@ -35,10 +35,10 @@ const InnerContainer = styled.div`
 `;
 
 const TopSection = ({ children }: Props) => (
-    <Section>
+    <TopSectionContainer>
         <Overlay />
         <InnerContainer>{children}</InnerContainer>
-    </Section>
+    </TopSectionContainer>
 );
 
 export default TopSection;

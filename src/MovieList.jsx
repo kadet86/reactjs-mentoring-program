@@ -9,7 +9,7 @@ type Props = {
     movies: List<MovieInfo>,
 };
 
-const Section = styled.section`
+const MovieListContainer = styled.section`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -19,11 +19,11 @@ const Section = styled.section`
 
 export default function MovieList({ movies }: Props) {
     return (
-        <Section>
+        <MovieListContainer>
             {movies &&
                 movies.map((movie: MovieInfo) => (
                     <MovieListItem movie={movie} key={movie.id} />
                 ))}
-        </Section>
+        </MovieListContainer>
     );
 }

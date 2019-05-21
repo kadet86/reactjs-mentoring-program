@@ -71,7 +71,7 @@ type Props = {
     changeSortBy: (sortBy?: string | null) => void,
 };
 
-const Section = styled.section`
+const FilteredMovieListContainer = styled.section`
     width: 100%;
 `;
 
@@ -188,7 +188,7 @@ export class FilteredMovieList extends React.PureComponent<Props> {
     render() {
         const noResults = !this.props.movies || this.props.movies.size === 0;
         return (
-            <Section>
+            <FilteredMovieListContainer>
                 <TopSection>
                     <Header>FIND YOUR MOVIE</Header>
                     <SearchForm
@@ -217,7 +217,7 @@ export class FilteredMovieList extends React.PureComponent<Props> {
                         </NoResultsSection>
                     </>
                 )}
-            </Section>
+            </FilteredMovieListContainer>
         );
     }
 }

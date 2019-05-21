@@ -27,7 +27,7 @@ type Props = {
     getMovie: ({ id: string }) => void,
 };
 
-const Section = styled.section`
+const MoviePageContainer = styled.section`
     button {
         font-size: 10px;
         color: red !important;
@@ -70,7 +70,7 @@ class MoviePage extends React.PureComponent<Props> {
         const movie = this.props.movie || {};
         const genre = movie && movie.genres && movie.genres[0];
         return (
-            <Section>
+            <MoviePageContainer>
                 <TopSection>
                     <Button
                         onClick={this.navigateToSearch}
@@ -80,7 +80,7 @@ class MoviePage extends React.PureComponent<Props> {
                     <Movie movie={movie} />
                 </TopSection>
                 <GenreMovieList genre={genre} />
-            </Section>
+            </MoviePageContainer>
         );
     }
 }
