@@ -1,14 +1,31 @@
 // @flow
 import * as React from 'react';
+import styled from 'styled-components';
 
 type Props = {
     sortBy: string,
     onSortByChange: (event: SyntheticEvent<HTMLElement>) => void,
 };
 
+const SortByContainer = styled.div`
+    float: right;
+
+    .sort-by__link {
+        padding-right: 10px;
+    }
+
+    .sort-by__link--active {
+        color: red;
+    }
+    
+    label {
+        padding-right: 10px;
+    }
+`;
+
 export default function SortBy({ sortBy, onSortByChange }: Props) {
     return (
-        <div className="sort-by">
+        <SortByContainer>
             <label>Sort by</label>
             <a
                 className={
@@ -32,6 +49,6 @@ export default function SortBy({ sortBy, onSortByChange }: Props) {
             >
                 rating
             </a>
-        </div>
+        </SortByContainer>
     );
 }

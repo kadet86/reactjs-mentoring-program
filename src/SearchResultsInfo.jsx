@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import SortBy from './SortBy';
-import { Toolbar } from 'primereact/toolbar';
+import Toolbar from './Toolbar';
 
 type Props = {
     resultsCount: number,

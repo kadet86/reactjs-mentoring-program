@@ -1,7 +1,6 @@
 // @flow
 import * as React from 'react';
 import Router from 'next/router';
-import { Toolbar } from 'primereact/toolbar';
 import { connect } from 'react-redux';
 import {
     changeQuery,
@@ -17,6 +16,9 @@ import TopSection from './TopSection';
 import type { MovieInfo } from './MovieListItem';
 import { createSelector } from 'reselect';
 import styled from 'styled-components';
+import { List } from 'immutable';
+import Toolbar from './Toolbar';
+
 export const MOVIES_LIMIT = 50;
 
 export function buildSearchRoute({
@@ -55,7 +57,7 @@ type Props = {
     query: string,
     searchBy: string,
     sortBy: string,
-    movies: any[],
+    movies: List<MovieInfo>,
     router: RouterInfo,
     showMovies: (movies: MovieInfo[]) => void,
     getMovies: ({
@@ -89,11 +91,11 @@ const NoResultsSection = styled.section`
     display: flex;
     align-items: center;
     justify-content: center;
-`;
 
-const NoResultsSectionHeader = styled.h1`
-    color: black;
-    font-size: 36px;
+    h1 {
+        color: black;
+        font-size: 36px;
+    }
 `;
 
 export class FilteredMovieList extends React.PureComponent<Props> {
@@ -184,7 +186,7 @@ export class FilteredMovieList extends React.PureComponent<Props> {
     }
 
     render() {
-        const noResults = !this.props.movies || this.props.movies.length === 0;
+        const noResults = !this.props.movies || this.props.movies.size === 0;
         return (
             <Section>
                 <TopSection>
@@ -200,7 +202,7 @@ export class FilteredMovieList extends React.PureComponent<Props> {
                 {!noResults && (
                     <>
                         <SearchResultsInfo
-                            resultsCount={this.props.movies.length}
+                            resultsCount={this.props.movies.size}
                             sortBy={this.props.sortBy}
                             onSortByChange={this.onSortByChange}
                         />
@@ -211,9 +213,7 @@ export class FilteredMovieList extends React.PureComponent<Props> {
                     <>
                         <Toolbar />
                         <NoResultsSection>
-                            <NoResultsSectionHeader>
-                                No films found
-                            </NoResultsSectionHeader>
+                            <h1>No films found</h1>
                         </NoResultsSection>
                     </>
                 )}

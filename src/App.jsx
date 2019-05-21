@@ -1,8 +1,6 @@
 // @flow
 import * as React from 'react';
 import styled from 'styled-components';
-// import '../node_modules/primereact/resources/themes/nova-light/theme.css';
-// import './main.css';
 
 type Props = {
     children?: React.Node,

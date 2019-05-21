@@ -1,8 +1,9 @@
 // @flow
 import * as React from 'react';
 import SearchBy from './SearchBy';
-import { Button } from 'primereact/button';
-import { InputText } from 'primereact/inputtext';
+import styled from 'styled-components';
+import Button from './Button';
+import InputText from './InputText';
 
 type Props = {
     query?: string,
@@ -12,6 +13,15 @@ type Props = {
     onSubmit: (event: SyntheticEvent<HTMLElement>) => void,
 };
 
+const Form = styled.form`
+    margin-bottom: 20px;
+
+    > button {
+        font-size: 16px;
+        float: right;
+    }
+`;
+
 export default function SearchForm({
     query,
     searchBy,
@@ -20,9 +30,8 @@ export default function SearchForm({
     onSubmit,
 }: Props) {
     return (
-        <form className="search-form" onSubmit={onSubmit}>
+        <Form className="search-form" onSubmit={onSubmit}>
             <InputText
-                className="search-input"
                 placeholder="Search..."
                 type="text"
                 required
@@ -30,11 +39,7 @@ export default function SearchForm({
                 onChange={onQueryChange}
             />
             <SearchBy searchBy={searchBy} onChange={onSearchByChange} />
-            <Button
-                className="p-button-danger search-button"
-                type="submit"
-                label="Search"
-            />
-        </form>
+            <Button type="submit" label="Search" className="button-danger" />
+        </Form>
     );
 }

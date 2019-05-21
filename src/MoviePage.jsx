@@ -1,13 +1,15 @@
 // @flow
 import * as React from 'react';
 import Router from 'next/router';
-import { Button } from 'primereact/button';
 import { connect } from 'react-redux';
 import { getMovie, showMovie } from './actions';
 import { buildSearchRoute } from './FilteredMovieList';
+import Button from './Button';
 import GenreMovieList from './GenreMovieList';
 import Movie from './Movie';
 import TopSection from './TopSection';
+import styled from 'styled-components';
+import type { FullMovieInfo } from './Movie';
 
 type RouterInfo = {
     asPath: string,
@@ -20,10 +22,19 @@ type Props = {
     query: string,
     searchBy: string,
     sortBy: string,
-    movie: any,
+    movie: FullMovieInfo,
     router: RouterInfo,
     getMovie: ({ id: string }) => void,
 };
+
+const Section = styled.section`
+    button {
+        font-size: 10px;
+        color: red !important;
+        float: right;
+        margin-top: -24px;
+    }
+`;
 
 class MoviePage extends React.PureComponent<Props> {
     constructor(props) {
@@ -31,6 +42,7 @@ class MoviePage extends React.PureComponent<Props> {
 
         this.navigateToSearch = this.navigateToSearch.bind(this);
     }
+
     componentDidMount() {
         this.fetchMovie();
     }
@@ -58,17 +70,17 @@ class MoviePage extends React.PureComponent<Props> {
         const movie = this.props.movie || {};
         const genre = movie && movie.genres && movie.genres[0];
         return (
-            <section className="movie-page">
+            <Section>
                 <TopSection>
                     <Button
                         onClick={this.navigateToSearch}
                         label="SEARCH"
-                        className="p-button-secondary"
+                        className="button-secondary"
                     />
                     <Movie movie={movie} />
                 </TopSection>
                 <GenreMovieList genre={genre} />
-            </section>
+            </Section>
         );
     }
 }

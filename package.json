@@ -15,7 +15,6 @@
         "next": "^8.1.0",
         "next-redux-saga": "^4.0.2",
         "next-redux-wrapper": "^3.0.0-alpha.2",
-        "primereact": "^3.1.0",
         "react": "^16.8.4",
         "react-dom": "^16.8.6",
         "react-hot-loader": "^4.8.4",

@@ -6,7 +6,7 @@ import {
     showMovie,
     showMovies,
 } from './actions';
-import { List, Map } from 'immutable';
+import { List } from 'immutable';
 
 export const initialState = {
     movie: null,
@@ -33,7 +33,7 @@ export const moviesReducer = handleActions(
         }),
         [showMovie]: (state, action) => ({
             ...state,
-            movie: Map(action.payload),
+            movie: action.payload,
         }),
     },
     initialState
