@@ -1,17 +1,16 @@
 import { handleActions } from 'redux-actions';
-import { all } from 'redux-saga/effects';
 import {
-    showMovies,
-    showMovie,
     changeQuery,
     changeSearchBy,
     changeSortBy,
-    moviesSaga,
+    showMovie,
+    showMovies,
 } from './actions';
+import { List, Map } from 'immutable';
 
 export const initialState = {
     movie: null,
-    movies: [],
+    movies: List(),
     query: '',
     searchBy: 'title',
     sortBy: 'release_date',
@@ -28,8 +27,14 @@ export const moviesReducer = handleActions(
             ...state,
             searchBy: action.payload,
         }),
-        [showMovies]: (state, action) => ({ ...state, movies: action.payload }),
-        [showMovie]: (state, action) => ({ ...state, movie: action.payload }),
+        [showMovies]: (state, action) => ({
+            ...state,
+            movies: List(action.payload),
+        }),
+        [showMovie]: (state, action) => ({
+            ...state,
+            movie: Map(action.payload),
+        }),
     },
     initialState
 );

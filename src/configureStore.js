@@ -4,14 +4,14 @@ import { rootSaga } from './actions';
 import { initialState, moviesReducer } from './reducers';
 
 export default (state = initialState) => {
-    const sagaMiddleware = createSagaMiddleware();
-    const store = createStore(
-        moviesReducer,
-        state,
-        applyMiddleware(sagaMiddleware)
-    );
+  const sagaMiddleware = createSagaMiddleware();
+  const store = createStore(
+    moviesReducer,
+    state,
+    applyMiddleware(sagaMiddleware),
+  );
 
-    store.sagaTask = sagaMiddleware.run(rootSaga);
+  store.sagaTask = sagaMiddleware.run(rootSaga);
 
-    return store;
+  return store;
 };

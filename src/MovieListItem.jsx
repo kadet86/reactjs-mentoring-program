@@ -1,7 +1,21 @@
+// @flow
+import * as React from 'react';
 import Link from 'next/link';
-import React from 'react';
 
-export default function MovieListItem({ movie, query }) {
+export type MovieInfo = {
+    id: string,
+    poster_path: string,
+    title: string,
+    release_date?: string,
+    genres?: string[],
+};
+
+type Props = {
+    movie: MovieInfo,
+    query?: string,
+};
+
+export default function MovieListItem({ movie, query }: Props) {
     return (
         <div className="movie-list-item">
             <Link href={`/film?id=${movie.id}`} as={`/film/${movie.id}`}>

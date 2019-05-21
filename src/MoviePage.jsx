@@ -1,6 +1,7 @@
+// @flow
+import * as React from 'react';
 import Router from 'next/router';
 import { Button } from 'primereact/button';
-import React from 'react';
 import { connect } from 'react-redux';
 import { getMovie, showMovie } from './actions';
 import { buildSearchRoute } from './FilteredMovieList';
@@ -8,14 +9,37 @@ import GenreMovieList from './GenreMovieList';
 import Movie from './Movie';
 import TopSection from './TopSection';
 
-class MoviePage extends React.PureComponent {
+type RouterInfo = {
+    asPath: string,
+    query: {
+        id: string,
+    },
+};
+
+type Props = {
+    query: string,
+    searchBy: string,
+    sortBy: string,
+    movie: any,
+    router: RouterInfo,
+    getMovie: ({ id: string }) => void,
+};
+
+class MoviePage extends React.PureComponent<Props> {
+    constructor(props) {
+        super(props);
+
+        this.navigateToSearch = this.navigateToSearch.bind(this);
+    }
     componentDidMount() {
         this.fetchMovie();
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.router.query.id !== this.props.router.query.id) {
-            document.documentElement.scrollTop = 0;
+            if (document.documentElement) {
+                document.documentElement.scrollTop = 0;
+            }
             this.fetchMovie();
         }
     }
@@ -24,10 +48,11 @@ class MoviePage extends React.PureComponent {
         this.props.getMovie({ id: this.props.router.query.id });
     }
 
-    navigateToSearch = () => {
+    /*:: navigateToSearch: () => void */
+    navigateToSearch(event: SyntheticEvent<HTMLInputElement>): void {
         const { url, as } = buildSearchRoute(this.props);
         Router.push(url, as);
-    };
+    }
 
     render() {
         const movie = this.props.movie || {};
@@ -55,7 +80,7 @@ const mapStateToProps = state => ({
     movie: state.movie,
 });
 
-const mapDispatchToProps = { getMovie, showMovie };
+const mapDispatchToProps = { getMovie };
 
 export default connect(
     mapStateToProps,

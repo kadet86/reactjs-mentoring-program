@@ -1,80 +1,12 @@
-body {
-    padding: 0;
-    margin: 0;
-    display: flex; 
-    justify-content: center;
-    font-family: "Open Sans", "Helvetica Neue", sans-serif;
-}
-
-.app {
-    display: flex;
-    width: 900px;
-}
-
-.top-section {
-    position: relative;
-    padding-top: 40px;
-    padding-bottom: 20px;
-    display: flex; 
-    flex-direction: row; 
-    justify-content: center;
-    background-image: url('http://i.imgur.com/1lAdGBz.jpg');
-    background-size: cover;
-}
-
-.top-section__overlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 0;
-    background: black;
-    opacity: .8;
-}
-
-.top-section .top-section__inner-container {
-    width: 700px;
-    color: white;
-    z-index: 1;
-}
-
-.filtered-movie-list {
-    width: 100%;
-}
-
-.filtered-movie-list .p-toolbar {
-    height: 40px;
-}
-
-.filtered-movie-list h1 {
-    margin: 0; 
-    margin-bottom: 10px; 
-    font-size: 14px; 
-    color: white;
-}
-
-.filtered-movie-list .no-results {
-    height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.filtered-movie-list .no-results h1 {
-    color: black;
-    font-size: 36px;
-}
-
 .search-form {
     margin-bottom: 20px;
 }
 
 .search-form .search-input {
-    width: 100%; 
-    margin-bottom: 10px; 
-    background: black; 
-    color: white
+    width: 100%;
+    margin-bottom: 10px;
+    background: black;
+    color: white;
 }
 
 .search-form .search-button {
@@ -98,9 +30,9 @@ body {
 }
 
 .app .movie-list-toolbar {
-    border: none; 
-    font-weight: bold; 
-    font-size: 12px; 
+    border: none;
+    font-weight: bold;
+    font-size: 12px;
     padding-left: 100px;
     padding-right: 100px;
 }
@@ -167,7 +99,7 @@ body {
 
 .app .movie-page button {
     font-size: 10px;
-    color: red!important;
+    color: red !important;
     float: right;
     margin-top: -24px;
 }

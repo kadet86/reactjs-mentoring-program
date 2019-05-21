@@ -1,17 +1,25 @@
-import React from 'react';
+// @flow
+import * as React from 'react';
 
-export default class ErrorBoundary extends React.Component {
-    constructor(props) {
+type Props = {
+    children: React.Node,
+};
+type State = {
+    error?: Error,
+};
+
+export default class ErrorBoundary extends React.Component<Props, State> {
+    constructor(props: Props) {
         super(props);
 
         this.state = {};
     }
 
-    static getDerivedStateFromError(error) {
-        return {error};
+    static getDerivedStateFromError(error: Error) {
+        return { error };
     }
 
-    componentDidCatch(error, info) {
+    componentDidCatch(error: Error, info: any) {
         console.error(error, info);
     }
 
