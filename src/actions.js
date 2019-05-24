@@ -1,4 +1,4 @@
-import 'isomorphic-fetch';
+import * as fetch from 'isomorphic-fetch';
 import { createAction } from 'redux-actions';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 

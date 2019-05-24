@@ -1,0 +1,5 @@
+/src/*test*.js*
+/cypress/
+*.config.js
+/__mocks__/
+/src/stories/

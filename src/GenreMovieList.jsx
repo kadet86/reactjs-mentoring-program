@@ -1,8 +1,8 @@
 import React from 'react';
 import MovieList from './MovieList';
-import {Toolbar} from 'primereact/toolbar';
-import {connect} from 'react-redux';
-import {getMovies} from './actions';
+import { connect } from 'react-redux';
+import { getMovies } from './actions';
+import Toolbar from './Toolbar';
 
 class GenreMovieList extends React.PureComponent {
     fetchMovies() {
@@ -30,20 +30,26 @@ class GenreMovieList extends React.PureComponent {
         return (
             <section>
                 <Toolbar className="movie-list-toolbar">
-                    <label className="movie-list-toolbar__label">Films by {this.props.genre} genre</label>
+                    <label className="movie-list-toolbar__label">
+                        Films by {this.props.genre} genre
+                    </label>
                 </Toolbar>
-                <MovieList 
-                    movies={this.props.movies} 
-                    navigateToMovie={this.props.navigateToMovie} />
+                <MovieList
+                    movies={this.props.movies}
+                    navigateToMovie={this.props.navigateToMovie}
+                />
             </section>
         );
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     movies: state.movies,
 });
 
-const mapDispatchToProps = {getMovies};
+const mapDispatchToProps = { getMovies };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GenreMovieList);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(GenreMovieList);

@@ -1,21 +1,57 @@
+// @flow
+import * as React from 'react';
 import Router from 'next/router';
-import { Button } from 'primereact/button';
-import React from 'react';
 import { connect } from 'react-redux';
 import { getMovie, showMovie } from './actions';
 import { buildSearchRoute } from './FilteredMovieList';
+import Button from './Button';
 import GenreMovieList from './GenreMovieList';
 import Movie from './Movie';
 import TopSection from './TopSection';
+import styled from 'styled-components';
+import type { FullMovieInfo } from './Movie';
 
-class MoviePage extends React.PureComponent {
+type RouterInfo = {
+    asPath: string,
+    query: {
+        id: string,
+    },
+};
+
+type Props = {
+    query: string,
+    searchBy: string,
+    sortBy: string,
+    movie: FullMovieInfo,
+    router: RouterInfo,
+    getMovie: ({ id: string }) => void,
+};
+
+const MoviePageContainer = styled.section`
+    button {
+        font-size: 10px;
+        color: red !important;
+        float: right;
+        margin-top: -24px;
+    }
+`;
+
+class MoviePage extends React.PureComponent<Props> {
+    constructor(props) {
+        super(props);
+
+        this.navigateToSearch = this.navigateToSearch.bind(this);
+    }
+
     componentDidMount() {
         this.fetchMovie();
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.router.query.id !== this.props.router.query.id) {
-            document.documentElement.scrollTop = 0;
+            if (document.documentElement) {
+                document.documentElement.scrollTop = 0;
+            }
             this.fetchMovie();
         }
     }
@@ -24,26 +60,27 @@ class MoviePage extends React.PureComponent {
         this.props.getMovie({ id: this.props.router.query.id });
     }
 
-    navigateToSearch = () => {
+    /*:: navigateToSearch: () => void */
+    navigateToSearch(event: SyntheticEvent<HTMLInputElement>): void {
         const { url, as } = buildSearchRoute(this.props);
         Router.push(url, as);
-    };
+    }
 
     render() {
         const movie = this.props.movie || {};
         const genre = movie && movie.genres && movie.genres[0];
         return (
-            <section className="movie-page">
+            <MoviePageContainer>
                 <TopSection>
                     <Button
                         onClick={this.navigateToSearch}
                         label="SEARCH"
-                        className="p-button-secondary"
+                        className="button-secondary"
                     />
                     <Movie movie={movie} />
                 </TopSection>
                 <GenreMovieList genre={genre} />
-            </section>
+            </MoviePageContainer>
         );
     }
 }
@@ -55,7 +92,7 @@ const mapStateToProps = state => ({
     movie: state.movie,
 });
 
-const mapDispatchToProps = { getMovie, showMovie };
+const mapDispatchToProps = { getMovie };
 
 export default connect(
     mapStateToProps,
